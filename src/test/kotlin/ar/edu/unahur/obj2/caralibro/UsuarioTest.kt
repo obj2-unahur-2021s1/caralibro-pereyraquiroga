@@ -7,7 +7,9 @@ class UsuarioTest : DescribeSpec({
   describe("Caralibro") {
     val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
     val fotoEnCuzco = Foto(768, 1024)
-
+    val videoSD = Video(tipoDeVideo = "SD",2)
+    val videoHD720p = Video(tipoDeVideo = "HD720p",2)
+    val videoHD1080P = Video(tipoDeVideo = "HD1080p",2)
     describe("Una publicación") {
       describe("de tipo foto") {
         it("ocupa ancho * alto * compresion bytes") {
@@ -20,6 +22,19 @@ class UsuarioTest : DescribeSpec({
           saludoCumpleanios.espacioQueOcupa().shouldBe(45)
         }
       }
+
+      describe("tipo video"){
+        it ("segun la calidad es el tamaño que ocupa videoSD"){
+            videoSD.espacioQueOcupa().shouldBe(2)
+        }
+        it ("segun la calidad es el tamaño que ocupa HD 720p"){
+          videoHD720p.espacioQueOcupa().shouldBe(6)
+        }
+        it ("segun la calidad es el tamaño que ocupa HD 1080p"){
+          videoHD1080P.espacioQueOcupa().shouldBe(12)
+        }
+
+      }
     }
 
     describe("Un usuario") {
@@ -27,7 +42,10 @@ class UsuarioTest : DescribeSpec({
         val juana = Usuario()
         juana.agregarPublicacion(fotoEnCuzco)
         juana.agregarPublicacion(saludoCumpleanios)
-        juana.espacioDePublicaciones().shouldBe(550548)
+        juana.agregarPublicacion(videoSD) // agregue videoSD
+        juana.agregarPublicacion((videoHD1080P))
+        juana.agregarPublicacion((videoHD720p))
+        juana.espacioDePublicaciones().shouldBe(550568) // calcular agregando video
       }
     }
   }
