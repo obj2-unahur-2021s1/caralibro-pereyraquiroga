@@ -47,6 +47,16 @@ class UsuarioTest : DescribeSpec({
         juana.agregarPublicacion((videoHD720p))
         juana.espacioDePublicaciones().shouldBe(550568) // calcular agregando video
       }
+
+      describe ("Poder darle me gusta a una publicacion y ver cuantas veces fue votada"){
+        val Roberto= Usuario()
+        val Silvana= Usuario()
+        val Claudia= Usuario()
+        Roberto.agregarPublicacion(saludoCumpleanios)
+        Silvana.darleMegusta(saludoCumpleanios)
+        Claudia.darleMegusta(saludoCumpleanios)
+        saludoCumpleanios.cuantasVecesFueVotada().shouldBe(2)
+      }
     }
   }
 })
