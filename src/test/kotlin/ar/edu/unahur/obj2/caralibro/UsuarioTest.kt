@@ -52,10 +52,18 @@ class UsuarioTest : DescribeSpec({
         val Roberto= Usuario()
         val Silvana= Usuario()
         val Claudia= Usuario()
+        val Estefania= Usuario()
+        val Sofia= Usuario()
         Roberto.agregarPublicacion(saludoCumpleanios)
-        Silvana.darleMegusta(saludoCumpleanios)
-        Claudia.darleMegusta(saludoCumpleanios)
+        Claudia.agregarPublicacion(fotoEnCuzco)
+        Silvana.agregarPublicacion(videoSD)
+        Silvana.darleMegusta(fotoEnCuzco)
+        Sofia.darleMegusta(saludoCumpleanios)
+        Claudia.darleMegusta(videoSD)
+        Estefania.darleMegusta(saludoCumpleanios)
         saludoCumpleanios.cuantasVecesFueVotada().shouldBe(2)
+        videoSD.cuantasVecesFueVotada().shouldBe(1)
+        fotoEnCuzco.cuantasVecesFueVotada().shouldBe(1)
       }
     }
   }
