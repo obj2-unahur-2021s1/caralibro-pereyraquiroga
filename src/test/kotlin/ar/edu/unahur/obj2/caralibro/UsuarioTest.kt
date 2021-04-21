@@ -65,6 +65,12 @@ class UsuarioTest : DescribeSpec({
         videoSD.cuantasVecesFueVotada().shouldBe(1)
         fotoEnCuzco.cuantasVecesFueVotada().shouldBe(1)
       }
+
+      describe("Un usuario es mas amistoso que otro"){
+        val Roberto= Usuario()
+        val Silvana= Usuario()
+        Roberto.esMasAmistosoQue(Silvana).shouldTrue()
+      }
     }
   }
 })

@@ -3,13 +3,20 @@ package ar.edu.unahur.obj2.caralibro
 import java.sql.Time
 import kotlin.math.ceil
 
-abstract class Publicacion {
+abstract class Publicacion() {
   abstract fun espacioQueOcupa(): Int
   abstract fun cuantasVecesFueVotada(): Int
   abstract fun aumentarContador()
+  fun permisos(tipoDePermiso:String){
+    if (tipoDePermiso=="publico"){
+
+    }
+  }
 
 
 }
+
+
 
 class Foto(val alto: Int, val ancho: Int) : Publicacion() {
   var contador =0
