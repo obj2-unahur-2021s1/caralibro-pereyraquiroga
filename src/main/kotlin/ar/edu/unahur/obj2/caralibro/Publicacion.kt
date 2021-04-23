@@ -15,7 +15,7 @@ abstract class Publicacion() {
 
   var usuarioDioMegusta= mutableListOf<Usuario>()
 
-  fun darMegusta(usuarioDeLike: Usuario){
+  fun usuariosQueDieronMeGusta(usuarioDeLike: Usuario){
     if(!usuarioDioMegusta.contains(usuarioDeLike)){
         usuarioDioMegusta.add(usuarioDeLike)
     }
