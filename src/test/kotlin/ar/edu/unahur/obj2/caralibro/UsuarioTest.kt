@@ -69,7 +69,15 @@ class UsuarioTest : DescribeSpec({
       describe("Un usuario es mas amistoso que otro"){
         val Roberto= Usuario()
         val Silvana= Usuario()
-        Roberto.esMasAmistosoQue(Silvana).shouldTrue()
+        val Claudia= Usuario()
+        val Estefania= Usuario()
+        val Sofia= Usuario()
+         Roberto.listaDeAmigos= mutableListOf<Usuario>()
+        Roberto.agregarAmigos(Sofia)
+        Silvana.listaDeAmigos= mutableListOf<Usuario>()
+        Silvana.agregarAmigos(Claudia)
+        Silvana.agregarAmigos(Estefania)
+        Roberto.esMasAmistosoQue(Silvana).shouldBe(" No tiene mas amigos")
       }
     }
   }

@@ -2,8 +2,11 @@ package ar.edu.unahur.obj2.caralibro
 
 class Usuario {
   val publicaciones = mutableListOf<Publicacion>()
-  val listaDeAmigos= mutableListOf<Usuario>()
+  var listaDeAmigos= mutableListOf<Usuario>()
 
+  fun agregarAmigos(usuario:Usuario){
+    listaDeAmigos.add(usuario)
+  }
   fun agregarPublicacion(publicacion: Publicacion) {
     publicaciones.add(publicacion)
   }
@@ -14,9 +17,23 @@ class Usuario {
     publicacion.aumentarContador()
   }
 
-  fun esMasAmistosoQue(usuario: Usuario) {
+  fun cantidadDeAmigos() = listaDeAmigos.size
 
+
+  fun esMasAmistosoQue(usuario:Usuario) { // ARREGLAR
+    if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos() ) {
+       "Tiene mas amigos"
+    }
+
+    else{
+      "No tiene mas amigos"
+    }
   }
 
-
 }
+
+
+
+
+
+
