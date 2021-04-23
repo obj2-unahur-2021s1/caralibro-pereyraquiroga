@@ -16,10 +16,9 @@ abstract class Publicacion() {
   var usuarioDioMegusta= mutableListOf<Usuario>()
 
   fun darMegusta(usuarioDeLike: Usuario){
-    if(usuarioDioMegusta.contains(usuarioDeLike)){
-      throw error("Este usuario ya le dio Like")
+    if(!usuarioDioMegusta.contains(usuarioDeLike)){
+        usuarioDioMegusta.add(usuarioDeLike)
     }
-    usuarioDioMegusta.add(usuarioDeLike)
   }
 
 }

@@ -57,6 +57,7 @@ class UsuarioTest : DescribeSpec({
         Silvana.agregarPublicacion(videoSD)
         saludoCumpleanios.darMegusta(Silvana)
         fotoEnCuzco.darMegusta(Roberto)
+        fotoEnCuzco.darMegusta(Roberto)
         saludoCumpleanios.cuantasVecesFueVotada().shouldBe(1)
         videoSD.cuantasVecesFueVotada().shouldBe(0)
         fotoEnCuzco.cuantasVecesFueVotada().shouldBe(1)
