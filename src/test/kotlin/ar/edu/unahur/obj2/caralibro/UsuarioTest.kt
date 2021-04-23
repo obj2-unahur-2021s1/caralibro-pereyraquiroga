@@ -77,7 +77,7 @@ class UsuarioTest : DescribeSpec({
         Silvana.listaDeAmigos= mutableListOf<Usuario>()
         Silvana.agregarAmigos(Claudia)
         Silvana.agregarAmigos(Estefania)
-        Roberto.esMasAmistosoQue(Silvana).shouldBe(" No tiene mas amigos")
+        Roberto.esMasAmistosoQue(Silvana).shouldBe(false)
       }
     }
   }

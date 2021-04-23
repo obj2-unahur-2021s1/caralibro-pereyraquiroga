@@ -20,15 +20,15 @@ class Usuario {
   fun cantidadDeAmigos() = listaDeAmigos.size
 
 
-  fun esMasAmistosoQue(usuario:Usuario) { // ARREGLAR
+  fun esMasAmistosoQue(usuario:Usuario) = // ARREGLAR
     if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos() ) {
-       "Tiene mas amigos"
+       true
     }
 
     else{
-      "No tiene mas amigos"
+      false
     }
-  }
+
 
 }
 
