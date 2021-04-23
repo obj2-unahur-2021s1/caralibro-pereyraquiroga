@@ -10,7 +10,7 @@ class UsuarioTest : DescribeSpec({
     val videoSD = Video(tipoDeVideo = "SD",2)
     val videoHD720p = Video(tipoDeVideo = "HD720p",2)
     val videoHD1080P = Video(tipoDeVideo = "HD1080p",2)
-    describe("Una publicación") {
+    describe("Una publicaci?n") {
       describe("de tipo foto") {
         it("ocupa ancho * alto * compresion bytes") {
           fotoEnCuzco.espacioQueOcupa().shouldBe(550503)
@@ -52,17 +52,13 @@ class UsuarioTest : DescribeSpec({
         val Roberto= Usuario()
         val Silvana= Usuario()
         val Claudia= Usuario()
-        val Estefania= Usuario()
-        val Sofia= Usuario()
         Roberto.agregarPublicacion(saludoCumpleanios)
         Claudia.agregarPublicacion(fotoEnCuzco)
         Silvana.agregarPublicacion(videoSD)
-        Silvana.darleMegusta(fotoEnCuzco)
-        Sofia.darleMegusta(saludoCumpleanios)
-        Claudia.darleMegusta(videoSD)
-        Estefania.darleMegusta(saludoCumpleanios)
-        saludoCumpleanios.cuantasVecesFueVotada().shouldBe(2)
-        videoSD.cuantasVecesFueVotada().shouldBe(1)
+        saludoCumpleanios.darMegusta(Silvana)
+        fotoEnCuzco.darMegusta(Roberto)
+        saludoCumpleanios.cuantasVecesFueVotada().shouldBe(1)
+        videoSD.cuantasVecesFueVotada().shouldBe(0)
         fotoEnCuzco.cuantasVecesFueVotada().shouldBe(1)
       }
 
@@ -72,7 +68,7 @@ class UsuarioTest : DescribeSpec({
         val Claudia= Usuario()
         val Estefania= Usuario()
         val Sofia= Usuario()
-         Roberto.listaDeAmigos= mutableListOf<Usuario>()
+        Roberto.listaDeAmigos= mutableListOf<Usuario>()
         Roberto.agregarAmigos(Sofia)
         Silvana.listaDeAmigos= mutableListOf<Usuario>()
         Silvana.agregarAmigos(Claudia)
