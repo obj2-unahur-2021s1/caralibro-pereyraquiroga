@@ -26,13 +26,17 @@ class Usuario {
       false
     }
 
-  fun puedeVerLaPublicacion(publicacion: Publicacion,permiso: Texto)=
-    if(permiso){
-      true
+  fun puedeVerLaPublicacion(publicacion: Publicacion,permiso: Texto, usuario:Usuario)=
+    if(permiso.toString() == "publico"){
+        true
     }
-    else{
-      false
+  else if(permiso.toString() == "solo amigos"){
+        this.listaDeAmigos.contains(usuario)
     }
+  else{
+        false
+    }
+
 
 
 

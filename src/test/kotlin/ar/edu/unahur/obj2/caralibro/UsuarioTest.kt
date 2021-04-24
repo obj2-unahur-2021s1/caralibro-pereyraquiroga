@@ -84,9 +84,11 @@ class UsuarioTest : DescribeSpec({
         val Leticia =Usuario()
         val Roberto= Usuario()
         val cumpleaños = Texto("Felicidades Alejandro")
-        val permiso=Texto("publico")
+        val permiso=Texto("solo amigos")
+        Leticia.listaDeAmigos= mutableListOf<Usuario>()
+        Leticia.agregarAmigos(Roberto)
         Leticia.agregarPublicacion(cumpleaños,permiso)
-        Roberto.puedeVerLaPublicacion(cumpleaños,permiso).shouldBe(true)
+        Roberto.puedeVerLaPublicacion(cumpleaños,permiso,Roberto).shouldBe(true)
       }
     }
   }

@@ -7,11 +7,7 @@ abstract class Publicacion() {
   abstract fun espacioQueOcupa(): Int
   abstract fun cuantasVecesFueVotada(): Int
 
-  fun permisos(tipoDePermiso:String){
-    if (tipoDePermiso=="publico"){
 
-    }
-  }
 
   var usuarioDioMegusta= mutableSetOf<Usuario>()
 
@@ -20,7 +16,11 @@ abstract class Publicacion() {
         usuarioDioMegusta.add(usuarioDeLike)
   }
 
+
+
 }
+
+
 
 
 class Foto(val alto: Int, val ancho: Int) : Publicacion() {
