@@ -30,8 +30,9 @@ class Usuario {
     if(permiso.toString() == "publico"){
         true
     }
-  else if(permiso.toString() == "solo amigos"){
-        this.listaDeAmigos.contains(usuario)
+  else if(permiso.toString() == "solo amigos" && this.listaDeAmigos.contains(usuario)){
+
+      true
     }
   else{
         false
