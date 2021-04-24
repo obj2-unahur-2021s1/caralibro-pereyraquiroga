@@ -13,12 +13,11 @@ abstract class Publicacion() {
     }
   }
 
-  var usuarioDioMegusta= mutableListOf<Usuario>()
+  var usuarioDioMegusta= mutableSetOf<Usuario>()
 
   fun usuariosQueDieronMeGusta(usuarioDeLike: Usuario){
-    if(!usuarioDioMegusta.contains(usuarioDeLike)){
+
         usuarioDioMegusta.add(usuarioDeLike)
-    }
   }
 
 }

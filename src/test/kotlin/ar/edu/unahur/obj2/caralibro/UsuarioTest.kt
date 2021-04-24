@@ -58,9 +58,10 @@ class UsuarioTest : DescribeSpec({
         saludoCumpleanios.usuariosQueDieronMeGusta(Silvana)
         fotoEnCuzco.usuariosQueDieronMeGusta(Roberto)
         fotoEnCuzco.usuariosQueDieronMeGusta(Roberto)
+        fotoEnCuzco.usuariosQueDieronMeGusta(Silvana)
         saludoCumpleanios.cuantasVecesFueVotada().shouldBe(1)
         videoSD.cuantasVecesFueVotada().shouldBe(0)
-        fotoEnCuzco.cuantasVecesFueVotada().shouldBe(1)
+        fotoEnCuzco.cuantasVecesFueVotada().shouldBe(2)
       }
 
       describe("Un usuario es mas amistoso que otro"){
