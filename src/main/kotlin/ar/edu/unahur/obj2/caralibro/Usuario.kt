@@ -8,7 +8,7 @@ class Usuario {
   fun agregarAmigos(usuario:Usuario){
     listaDeAmigos.add(usuario)
   }
-  fun agregarPublicacion(publicacion: Publicacion) {
+  fun agregarPublicacion(publicacion: Publicacion, permiso: Texto) {
     publicaciones.add(publicacion)
   }
 
@@ -17,7 +17,7 @@ class Usuario {
   fun cantidadDeAmigos() = listaDeAmigos.size
 
 
-  fun esMasAmistosoQue(usuario:Usuario) = // ARREGLAR
+  fun esMasAmistosoQue(usuario:Usuario) =
     if (this.cantidadDeAmigos() > usuario.cantidadDeAmigos() ) {
        true
     }
@@ -25,6 +25,15 @@ class Usuario {
     else{
       false
     }
+
+  fun puedeVerLaPublicacion(publicacion: Publicacion,permiso: Texto)=
+    if(permiso){
+      true
+    }
+    else{
+      false
+    }
+
 
 
 }

@@ -6,7 +6,7 @@ import kotlin.math.ceil
 abstract class Publicacion() {
   abstract fun espacioQueOcupa(): Int
   abstract fun cuantasVecesFueVotada(): Int
-  //abstract fun aumentarContador()
+
   fun permisos(tipoDePermiso:String){
     if (tipoDePermiso=="publico"){
 

@@ -40,11 +40,12 @@ class UsuarioTest : DescribeSpec({
     describe("Un usuario") {
       it("puede calcular el espacio que ocupan sus publicaciones") {
         val juana = Usuario()
-        juana.agregarPublicacion(fotoEnCuzco)
-        juana.agregarPublicacion(saludoCumpleanios)
-        juana.agregarPublicacion(videoSD) // agregue videoSD
-        juana.agregarPublicacion((videoHD1080P))
-        juana.agregarPublicacion((videoHD720p))
+        val permiso =Texto("publico")
+        juana.agregarPublicacion(fotoEnCuzco, permiso)
+        juana.agregarPublicacion(saludoCumpleanios, permiso)
+        juana.agregarPublicacion(videoSD, permiso) // agregue videoSD
+        juana.agregarPublicacion((videoHD1080P), permiso)
+        juana.agregarPublicacion((videoHD720p), permiso)
         juana.espacioDePublicaciones().shouldBe(550568) // calcular agregando video
       }
 
@@ -52,9 +53,10 @@ class UsuarioTest : DescribeSpec({
         val Roberto= Usuario()
         val Silvana= Usuario()
         val Claudia= Usuario()
-        Roberto.agregarPublicacion(saludoCumpleanios)
-        Claudia.agregarPublicacion(fotoEnCuzco)
-        Silvana.agregarPublicacion(videoSD)
+        val permiso=Texto("publico")
+        Roberto.agregarPublicacion(saludoCumpleanios, permiso)
+        Claudia.agregarPublicacion(fotoEnCuzco, permiso)
+        Silvana.agregarPublicacion(videoSD, permiso)
         saludoCumpleanios.usuariosQueDieronMeGusta(Silvana)
         fotoEnCuzco.usuariosQueDieronMeGusta(Roberto)
         fotoEnCuzco.usuariosQueDieronMeGusta(Roberto)
@@ -76,6 +78,15 @@ class UsuarioTest : DescribeSpec({
         Silvana.agregarAmigos(Claudia)
         Silvana.agregarAmigos(Estefania)
         Roberto.esMasAmistosoQue(Silvana).shouldBe(false)
+      }
+
+      describe("Saber si un usuario puede ver una publicacion"){
+        val Leticia =Usuario()
+        val Roberto= Usuario()
+        val cumpleaños = Texto("Felicidades Alejandro")
+        val permiso=Texto("publico")
+        Leticia.agregarPublicacion(cumpleaños,permiso)
+        Roberto.puedeVerLaPublicacion(cumpleaños,permiso).shouldBe(true)
       }
     }
   }
