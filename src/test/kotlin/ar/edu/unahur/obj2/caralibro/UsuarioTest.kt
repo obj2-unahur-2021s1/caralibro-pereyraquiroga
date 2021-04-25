@@ -4,8 +4,12 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 
 class UsuarioTest : DescribeSpec({
+  val Roberto= Usuario()
+  val Silvana= Usuario()
+  val Sofia= Usuario()
+  val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
   describe("Caralibro") {
-    val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
+
     val fotoEnCuzco = Foto(768, 1024)
     val videoSD = Video(tipoDeVideo = "SD",2)
     val videoHD720p = Video(tipoDeVideo = "HD720p",2)
@@ -50,8 +54,6 @@ class UsuarioTest : DescribeSpec({
       }
 
       describe ("Poder darle me gusta a una publicacion y ver cuantas veces fue votada"){
-        val Roberto= Usuario()
-        val Silvana= Usuario()
         val Claudia= Usuario()
         val permiso=Texto("publico")
         Roberto.agregarPublicacion(saludoCumpleanios, permiso)
@@ -67,28 +69,45 @@ class UsuarioTest : DescribeSpec({
       }
 
       describe("Un usuario es mas amistoso que otro"){
-        val Roberto= Usuario()
-        val Silvana= Usuario()
         val Claudia= Usuario()
         val Estefania= Usuario()
-        val Sofia= Usuario()
-        Roberto.listaDeAmigos= mutableListOf<Usuario>()
         Roberto.agregarAmigos(Sofia)
-        Silvana.listaDeAmigos= mutableListOf<Usuario>()
+        Roberto.agregarAmigos(Sofia)
+        Roberto.agregarAmigos(Sofia)
+        Roberto.agregarAmigos(Sofia)
         Silvana.agregarAmigos(Claudia)
         Silvana.agregarAmigos(Estefania)
-        Roberto.esMasAmistosoQue(Silvana).shouldBe(false)
+       Roberto.esMasAmistosoQue(Silvana).shouldBe(false)
       }
 
       describe("Saber si un usuario puede ver una publicacion"){
         val Leticia =Usuario()
-        val Roberto= Usuario()
-        val cumpleaños = Texto("Felicidades Alejandro")
+        val cumpleanios = Texto("Felicidades Alejandro")
         val permiso=Texto("solo amigos")
         Leticia.listaDeAmigos= mutableListOf<Usuario>()
         Leticia.agregarAmigos(Roberto)
-        Leticia.agregarPublicacion(cumpleaños,permiso)
-        Roberto.puedeVerLaPublicacion(cumpleaños,permiso,Roberto).shouldBe(true)
+        Leticia.agregarPublicacion(cumpleanios,permiso)
+        Roberto.puedeVerLaPublicacion(cumpleanios,permiso,Roberto).shouldBe(true)
+      }
+
+      describe("Un usuario puede ver una cierta publicacion."){
+        val Claudia= Usuario()
+        val Estefania= Usuario()
+        val soloAmigos=soloAmigos(Roberto.listaDeAmigos)
+
+        Roberto.agregarAmigos(Sofia)
+        Silvana.agregarAmigos(Claudia)
+        Silvana.agregarAmigos(Estefania)
+        //publicaciones
+        Roberto.agregarPublicacion(saludoCumpleanios,soloAmigos)
+
+        Claudia.agregarPublicacion(fotoEnCuzco,soloAmigos)
+        //fotoEnCuzco.agregarPermisos(Publico)
+
+        Silvana.agregarPublicacion(videoSD)
+        //valido si un usuario puede ver la publicacion ingresada como parametro...
+        Roberto.puedeVerLaPublicacion(fotoEnCuzco).shouldBe(false)
+        Claudia.puedeVerLaPublicacion(videoSD).shouldBe(true)
       }
     }
   }

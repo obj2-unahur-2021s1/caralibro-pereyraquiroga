@@ -8,8 +8,9 @@ class Usuario {
   fun agregarAmigos(usuario:Usuario){
     listaDeAmigos.add(usuario)
   }
-  fun agregarPublicacion(publicacion: Publicacion, permiso: Texto) {
+  fun agregarPublicacion(publicacion: Publicacion, permiso: Permiso) {
     publicaciones.add(publicacion)
+
   }
 
   fun espacioDePublicaciones() = publicaciones.sumBy { it.espacioQueOcupa() }

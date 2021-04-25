@@ -3,11 +3,10 @@ package ar.edu.unahur.obj2.caralibro
 import java.sql.Time
 import kotlin.math.ceil
 
-abstract class Publicacion() {
+abstract class Publicacion {
   abstract fun espacioQueOcupa(): Int
   abstract fun cuantasVecesFueVotada(): Int
-
-
+  val permiso: Permiso()
 
   var usuarioDioMegusta= mutableSetOf<Usuario>()
 
@@ -16,11 +15,7 @@ abstract class Publicacion() {
         usuarioDioMegusta.add(usuarioDeLike)
   }
 
-
-
 }
-
-
 
 
 class Foto(val alto: Int, val ancho: Int) : Publicacion() {
@@ -56,8 +51,6 @@ class Texto(val contenido: String) : Publicacion() {
    override fun cuantasVecesFueVotada() = usuarioDioMegusta.size
 
 }
-
-
 
 
 
