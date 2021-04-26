@@ -2,7 +2,8 @@ package ar.edu.unahur.obj2.caralibro
 
 abstract class Permiso {
     val listaDeAmigos= mutableListOf<Usuario>()
-    val listaDeExcluidos= mutableListOf<Usuario>()
+    var listaDeExcluidos= mutableListOf<Usuario>()
+
     abstract fun puedeVerLaPublicacion(usuario: Usuario) : Boolean
 
 }
@@ -16,9 +17,9 @@ class SoloAmigos():Permiso() {
         return listaDeAmigos.contains(usuario)
     }
 }
- class Excluidos():Permiso(){
-     override fun puedeVerLaPublicacion(usuario: Usuario)=
-          !listaDeExcluidos.contains(usuario)
+class Excluidos():Permiso(){
+    override fun puedeVerLaPublicacion(usuario: Usuario)=
+        !listaDeExcluidos.contains(usuario)
 
 
 }

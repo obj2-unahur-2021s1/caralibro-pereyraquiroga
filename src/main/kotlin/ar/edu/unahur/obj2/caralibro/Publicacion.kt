@@ -7,6 +7,7 @@ abstract class Publicacion() {
   abstract fun espacioQueOcupa(): Int
   abstract fun cuantasVecesFueVotada(): Int
 
+
   var usuarioDioMegusta= mutableSetOf<Usuario>()
 
   fun usuariosQueDieronMeGusta(usuarioDeLike: Usuario){

@@ -2,6 +2,7 @@ package ar.edu.unahur.obj2.caralibro
 
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
+import ar.edu.unahur.obj2.caralibro.Excluidos as Permiso
 
 class UsuarioTest : DescribeSpec({
   val Roberto= Usuario()
@@ -98,16 +99,17 @@ class UsuarioTest : DescribeSpec({
       }
 
       describe("Silvana puede ver la publicacion de Estefania si es publica con lista de excluidos") {
-        val listaExcluidos = Excluidos()
+        val listaExcluidos= Permiso()
         val Estefania=Usuario()
         Estefania.agregarExcluidos(Silvana)
         Estefania.agregarPublicacion(videoHD1080P,listaExcluidos)
         Estefania.puedeVerLaPublicacion(videoHD1080P,Silvana).shouldBe(false)
       }
       describe("Leticia puede ver a publicacion de Silvana si es publica con lista de excluidos"){
-        val listaExcluidos = Excluidos()
+        val listaExcluidos = Permiso()
         val Claudia=Usuario()
         Claudia.agregarExcluidos(Roberto)
+
         Claudia.agregarExcluidos(Estefania)
         Claudia.agregarPublicacion(videoHD1080P,listaExcluidos)
         Claudia.puedeVerLaPublicacion(videoHD1080P,Leticia).shouldBe(true) /// ARREGLAR PARA LA POSIBILIDAD DE TRUE
