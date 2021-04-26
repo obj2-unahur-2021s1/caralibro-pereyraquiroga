@@ -14,7 +14,7 @@ class Usuario {
     listaDeExcluidos.add(usuario)
   }
 
-  fun agregarPublicacion(publicacion: Publicacion, permiso: Permiso) {
+  fun agregarPublicacion(publicacion: Publicacion) {
     publicaciones.add(publicacion)
 
   }

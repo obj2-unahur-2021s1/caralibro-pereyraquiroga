@@ -18,7 +18,7 @@ abstract class Publicacion() {
 }
 
 
-class Foto(val alto: Int, val ancho: Int) : Publicacion() {
+class Foto(val alto: Int, val ancho: Int, val permiso: Permiso) : Publicacion() {
 
   val factorDeCompresion = 0.7
 
@@ -29,14 +29,14 @@ class Foto(val alto: Int, val ancho: Int) : Publicacion() {
 
 }
 
-class Texto(val contenido: String) : Publicacion() {
+class Texto(val contenido: String, val permiso: Permiso) : Publicacion() {
 
   override fun espacioQueOcupa() = contenido.length
 
   override fun cuantasVecesFueVotada() = usuarioDioMegusta.size
 }
 
-class Video(val tipoDeVideo : String, val tiempo :Int): Publicacion() {
+class Video(val tipoDeVideo : String, val tiempo :Int,val permiso: Permiso): Publicacion() {
 
   override fun espacioQueOcupa() =
     if (tipoDeVideo == "SD") {

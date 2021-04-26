@@ -18,8 +18,8 @@ class SoloAmigos():Permiso() {
     }
 }
 class Excluidos():Permiso(){
-    override fun puedeVerLaPublicacion(usuario: Usuario)=
-        !listaDeExcluidos.contains(usuario)
-
+    override fun puedeVerLaPublicacion(usuario: Usuario):Boolean {
+        return !listaDeExcluidos.contains(usuario)
+    }
 
 }
