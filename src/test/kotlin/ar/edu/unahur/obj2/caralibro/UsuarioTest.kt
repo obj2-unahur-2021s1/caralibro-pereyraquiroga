@@ -7,13 +7,15 @@ class UsuarioTest : DescribeSpec({
   val Roberto= Usuario()
   val Silvana= Usuario()
   val Sofia= Usuario()
-  val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
+  val Publico =Publico()
+
   describe("Caralibro") {
 
     val fotoEnCuzco = Foto(768, 1024)
     val videoSD = Video(tipoDeVideo = "SD",2)
     val videoHD720p = Video(tipoDeVideo = "HD720p",2)
     val videoHD1080P = Video(tipoDeVideo = "HD1080p",2)
+    val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
     describe("Una publicaci?n") {
       describe("de tipo foto") {
         it("ocupa ancho * alto * compresion bytes") {
@@ -44,21 +46,20 @@ class UsuarioTest : DescribeSpec({
     describe("Un usuario") {
       it("puede calcular el espacio que ocupan sus publicaciones") {
         val juana = Usuario()
-        val permiso =Texto("publico")
-        juana.agregarPublicacion(fotoEnCuzco, permiso)
-        juana.agregarPublicacion(saludoCumpleanios, permiso)
-        juana.agregarPublicacion(videoSD, permiso) // agregue videoSD
-        juana.agregarPublicacion((videoHD1080P), permiso)
-        juana.agregarPublicacion((videoHD720p), permiso)
+
+        juana.agregarPublicacion(fotoEnCuzco, Publico)
+        juana.agregarPublicacion(saludoCumpleanios, Publico)
+        juana.agregarPublicacion(videoSD, Publico) // agregue videoSD
+        juana.agregarPublicacion((videoHD1080P), Publico)
+        juana.agregarPublicacion((videoHD720p), Publico)
         juana.espacioDePublicaciones().shouldBe(550568) // calcular agregando video
       }
 
       describe ("Poder darle me gusta a una publicacion y ver cuantas veces fue votada"){
         val Claudia= Usuario()
-        val permiso=Texto("publico")
-        Roberto.agregarPublicacion(saludoCumpleanios, permiso)
-        Claudia.agregarPublicacion(fotoEnCuzco, permiso)
-        Silvana.agregarPublicacion(videoSD, permiso)
+        Roberto.agregarPublicacion(saludoCumpleanios, Publico)
+        Claudia.agregarPublicacion(fotoEnCuzco, Publico)
+        Silvana.agregarPublicacion(videoSD, Publico)
         saludoCumpleanios.usuariosQueDieronMeGusta(Silvana)
         fotoEnCuzco.usuariosQueDieronMeGusta(Roberto)
         fotoEnCuzco.usuariosQueDieronMeGusta(Roberto)
@@ -72,42 +73,19 @@ class UsuarioTest : DescribeSpec({
         val Claudia= Usuario()
         val Estefania= Usuario()
         Roberto.agregarAmigos(Sofia)
-        Roberto.agregarAmigos(Sofia)
-        Roberto.agregarAmigos(Sofia)
-        Roberto.agregarAmigos(Sofia)
         Silvana.agregarAmigos(Claudia)
         Silvana.agregarAmigos(Estefania)
        Roberto.esMasAmistosoQue(Silvana).shouldBe(false)
       }
 
-      describe("Saber si un usuario puede ver una publicacion"){
-        val Leticia =Usuario()
-        val cumpleanios = Texto("Felicidades Alejandro")
-        val permiso=Texto("solo amigos")
-        Leticia.listaDeAmigos= mutableListOf<Usuario>()
-        Leticia.agregarAmigos(Roberto)
-        Leticia.agregarPublicacion(cumpleanios,permiso)
-        Roberto.puedeVerLaPublicacion(cumpleanios,permiso,Roberto).shouldBe(true)
-      }
-
       describe("Un usuario puede ver una cierta publicacion."){
         val Claudia= Usuario()
-        val Estefania= Usuario()
-        val soloAmigos=soloAmigos(Roberto.listaDeAmigos)
 
-        Roberto.agregarAmigos(Sofia)
-        Silvana.agregarAmigos(Claudia)
-        Silvana.agregarAmigos(Estefania)
-        //publicaciones
-        Roberto.agregarPublicacion(saludoCumpleanios,soloAmigos)
+        Claudia.agregarAmigos(Roberto)
 
-        Claudia.agregarPublicacion(fotoEnCuzco,soloAmigos)
-        //fotoEnCuzco.agregarPermisos(Publico)
+        Claudia.agregarPublicacion(videoSD,Publico)
 
-        Silvana.agregarPublicacion(videoSD)
-        //valido si un usuario puede ver la publicacion ingresada como parametro...
-        Roberto.puedeVerLaPublicacion(fotoEnCuzco).shouldBe(false)
-        Claudia.puedeVerLaPublicacion(videoSD).shouldBe(true)
+        Claudia.puedeVerLaPublicacion(videoSD,Roberto).shouldBe(true)
       }
     }
   }
