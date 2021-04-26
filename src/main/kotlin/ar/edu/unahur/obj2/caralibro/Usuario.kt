@@ -4,8 +4,12 @@ class Usuario {
   val publicaciones = mutableListOf<Publicacion>()
   var listaDeAmigos = mutableListOf<Usuario>()
   var listaDeExcluidos= mutableListOf<Usuario>()
+  var listaPermitidos= mutableListOf<Usuario>()
 
 
+  fun agregarPermitidos(usuario:Usuario){
+    listaPermitidos.add(usuario)
+  }
   fun agregarAmigos(usuario: Usuario) {
     listaDeAmigos.add(usuario)
   }

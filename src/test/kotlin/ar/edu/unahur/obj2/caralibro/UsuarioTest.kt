@@ -92,7 +92,7 @@ class UsuarioTest : DescribeSpec({
       }
 
       describe("El usuario Silvana puede ver la publicacion si es para solo amigos de Roberto") {
-       val SoloAmigos=SoloAmigos()
+        val SoloAmigos=SoloAmigos()
         val fotoEnCuzcoCumple=Foto(2,3,SoloAmigos)
         Roberto.agregarAmigos(Silvana)
         Roberto.agregarPublicacion(fotoEnCuzcoCumple)
@@ -118,10 +118,24 @@ class UsuarioTest : DescribeSpec({
         Claudia.puedeVerLaPublicacion(videoHD1080P,Leticia).shouldBe(true) /// ARREGLAR PARA LA POSIBILIDAD DE TRUE
       }
 
-      
+      describe("Quien puede ver la publicacion privada con lista de permitidos"){
+        val Leticia = Usuario()
+        val Permitidos= Permitidos()
+        val texto=Texto("Buen dia gente",Permitidos)
+        Leticia.agregarPublicacion(texto)
+        Leticia.agregarPermitidos(Roberto)
+        Leticia.agregarPermitidos(Claudia)
+
+        Permitidos.puedeVerLaPublicacion(Claudia).shouldBe(true)
+
+
+      }
+
+
+
 
 
     }
   }
 
-  })
+})

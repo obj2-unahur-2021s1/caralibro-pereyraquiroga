@@ -1,4 +1,3 @@
-
 package ar.edu.unahur.obj2.caralibro
 
 import kotlin.math.ceil
@@ -52,9 +51,3 @@ class Video(val tipoDeVideo : String, val tiempo :Int,val permiso: Permiso): Pub
   override fun cuantasVecesFueVotada() = usuarioDioMegusta.size
 
 }
-
-
-
-
-
-
