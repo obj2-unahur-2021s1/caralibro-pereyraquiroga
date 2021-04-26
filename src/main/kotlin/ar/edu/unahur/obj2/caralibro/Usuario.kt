@@ -3,10 +3,15 @@ package ar.edu.unahur.obj2.caralibro
 class Usuario {
   val publicaciones = mutableListOf<Publicacion>()
   var listaDeAmigos = mutableListOf<Usuario>()
+  var listaDeExcluidos= mutableListOf<Usuario>()
 
 
   fun agregarAmigos(usuario: Usuario) {
     listaDeAmigos.add(usuario)
+  }
+
+  fun agregarExcluidos(usuario:Usuario){
+    listaDeExcluidos.add(usuario)
   }
 
   fun agregarPublicacion(publicacion: Publicacion, permiso: Permiso) {
@@ -26,6 +31,7 @@ class Usuario {
     ((publicaciones.contains(publicacion)) && ((this == usuario) || (this.listaDeAmigos.contains(usuario)) ))
 
 }
+
 
 
 

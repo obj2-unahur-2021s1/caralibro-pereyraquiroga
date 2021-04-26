@@ -7,14 +7,17 @@ class UsuarioTest : DescribeSpec({
   val Roberto= Usuario()
   val Silvana= Usuario()
   val Sofia= Usuario()
+  val Estefania=Usuario()
+  val Claudia = Usuario()
+  val Leticia = Usuario()
   val Publico =Publico()
 
   describe("Caralibro") {
 
     val fotoEnCuzco = Foto(768, 1024)
-    val videoSD = Video(tipoDeVideo = "SD",2)
-    val videoHD720p = Video(tipoDeVideo = "HD720p",2)
-    val videoHD1080P = Video(tipoDeVideo = "HD1080p",2)
+    val videoSD = Video(tipoDeVideo = "SD", 2)
+    val videoHD720p = Video(tipoDeVideo = "HD720p", 2)
+    val videoHD1080P = Video(tipoDeVideo = "HD1080p", 2)
     val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
     describe("Una publicaci?n") {
       describe("de tipo foto") {
@@ -29,14 +32,14 @@ class UsuarioTest : DescribeSpec({
         }
       }
 
-      describe("tipo video"){
-        it ("segun la calidad es el tamaño que ocupa videoSD"){
-            videoSD.espacioQueOcupa().shouldBe(2)
+      describe("tipo video") {
+        it("segun la calidad es el tamaño que ocupa videoSD") {
+          videoSD.espacioQueOcupa().shouldBe(2)
         }
-        it ("segun la calidad es el tamaño que ocupa HD 720p"){
+        it("segun la calidad es el tamaño que ocupa HD 720p") {
           videoHD720p.espacioQueOcupa().shouldBe(6)
         }
-        it ("segun la calidad es el tamaño que ocupa HD 1080p"){
+        it("segun la calidad es el tamaño que ocupa HD 1080p") {
           videoHD1080P.espacioQueOcupa().shouldBe(12)
         }
 
@@ -55,8 +58,8 @@ class UsuarioTest : DescribeSpec({
         juana.espacioDePublicaciones().shouldBe(550568) // calcular agregando video
       }
 
-      describe ("Poder darle me gusta a una publicacion y ver cuantas veces fue votada"){
-        val Claudia= Usuario()
+      describe("Poder darle me gusta a una publicacion y ver cuantas veces fue votada") {
+        val Claudia = Usuario()
         Roberto.agregarPublicacion(saludoCumpleanios, Publico)
         Claudia.agregarPublicacion(fotoEnCuzco, Publico)
         Silvana.agregarPublicacion(videoSD, Publico)
@@ -69,24 +72,49 @@ class UsuarioTest : DescribeSpec({
         fotoEnCuzco.cuantasVecesFueVotada().shouldBe(2)
       }
 
-      describe("Un usuario es mas amistoso que otro"){
-        val Claudia= Usuario()
-        val Estefania= Usuario()
+      describe("Un usuario es mas amistoso que otro") {
+
         Roberto.agregarAmigos(Sofia)
         Silvana.agregarAmigos(Claudia)
         Silvana.agregarAmigos(Estefania)
-       Roberto.esMasAmistosoQue(Silvana).shouldBe(false)
+        Roberto.esMasAmistosoQue(Silvana).shouldBe(false)
       }
 
-      describe("Un usuario puede ver una cierta publicacion."){
-        val Claudia= Usuario()
+      describe("Un usuario puede ver una cierta publicacion.") {
+        val Claudia = Usuario()
 
         Claudia.agregarAmigos(Roberto)
 
-        Claudia.agregarPublicacion(videoSD,Publico)
+        Claudia.agregarPublicacion(videoSD, Publico)
 
-        Claudia.puedeVerLaPublicacion(videoSD,Roberto).shouldBe(true)
+        Claudia.puedeVerLaPublicacion(videoSD, Roberto).shouldBe(true)
       }
+
+      describe("El usuario Silvana puede ver la publicacion si es para solo amigos de Roberto") {
+        val soloAmigos = SoloAmigos()
+        Roberto.agregarAmigos(Silvana)
+        Roberto.agregarPublicacion(fotoEnCuzco, soloAmigos)
+        Roberto.puedeVerLaPublicacion(fotoEnCuzco, Silvana).shouldBe(true)
+      }
+
+      describe("Silvana puede ver la publicacion de Estefania si es publica con lista de excluidos") {
+        val listaExcluidos = Excluidos()
+        val Estefania=Usuario()
+        Estefania.agregarExcluidos(Silvana)
+        Estefania.agregarPublicacion(videoHD1080P,listaExcluidos)
+        Estefania.puedeVerLaPublicacion(videoHD1080P,Silvana).shouldBe(false)
+      }
+      describe("Leticia puede ver a publicacion de Silvana si es publica con lista de excluidos"){
+        val listaExcluidos = Excluidos()
+        val Claudia=Usuario()
+        Claudia.agregarExcluidos(Roberto)
+        Claudia.agregarExcluidos(Estefania)
+        Claudia.agregarPublicacion(videoHD1080P,listaExcluidos)
+        Claudia.puedeVerLaPublicacion(videoHD1080P,Leticia).shouldBe(true) /// ARREGLAR PARA LA POSIBILIDAD DE TRUE
+      }
+
+
     }
   }
-})
+
+  })
