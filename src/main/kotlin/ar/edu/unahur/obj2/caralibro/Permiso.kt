@@ -29,4 +29,6 @@ class Permitidos():Permiso(){
     override fun puedeVerLaPublicacion(usuario: Usuario): Boolean {
         return listaPermitidos.contains(usuario)
     }
+
+
 }

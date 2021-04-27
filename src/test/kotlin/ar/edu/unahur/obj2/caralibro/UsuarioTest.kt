@@ -96,7 +96,7 @@ class UsuarioTest : DescribeSpec({
         val fotoEnCuzcoCumple=Foto(2,3,SoloAmigos)
         Roberto.agregarAmigos(Silvana)
         Roberto.agregarPublicacion(fotoEnCuzcoCumple)
-        Roberto.puedeVerLaPublicacion(fotoEnCuzcoCumple, Silvana).shouldBe(true)
+        Roberto.puedeVerLaPublicacion(fotoEnCuzcoCumple,Silvana).shouldBe(true)
       }
 
       describe("Silvana puede ver la publicacion de Estefania si es publica con lista de excluidos") {
@@ -107,33 +107,39 @@ class UsuarioTest : DescribeSpec({
         Estefania.agregarPublicacion(videoHD1080P)
         Estefania.puedeVerLaPublicacion(videoHD1080P,Silvana).shouldBe(false)
       }
+
       describe("Leticia puede ver a publicacion de Silvana si es publica con lista de excluidos"){
         val Excluidos= Excluidos()
         val videoHD1080P=Video("DH1080P",2,Excluidos)
         val Claudia=Usuario()
         Claudia.agregarExcluidos(Roberto)
-
         Claudia.agregarExcluidos(Estefania)
+        Claudia.agregarAmigos(Leticia)
         Claudia.agregarPublicacion(videoHD1080P)
-        Claudia.puedeVerLaPublicacion(videoHD1080P,Leticia).shouldBe(true) /// ARREGLAR PARA LA POSIBILIDAD DE TRUE
+        Claudia.puedeVerLaPublicacion(videoHD1080P,Leticia).shouldBe(true)
       }
 
-      describe("Quien puede ver la publicacion privada con lista de permitidos"){
-        val Leticia = Usuario()
+      describe("Puede ver publicacion si esta en la lista de Permitidos"){
         val Permitidos= Permitidos()
-        val texto=Texto("Buen dia gente",Permitidos)
-        Leticia.agregarPublicacion(texto)
-        Leticia.agregarPermitidos(Roberto)
-        Leticia.agregarPermitidos(Claudia)
-
-        Permitidos.puedeVerLaPublicacion(Claudia).shouldBe(true)
-
-
+        val foto=Foto(2,2,Permitidos)
+        Estefania.agregarPermitidos(Claudia)
+        Estefania.agregarPermitidos(Sofia)
+        Estefania.agregarPublicacion(foto)
+        Estefania.puedeVerLaPublicacion(foto,Sofia).shouldBe(true)
       }
 
+      describe("No puede ver publicacion si no esta en la lista de Permitidos"){
+        val Permitidos= Permitidos()
+        val foto=Foto(2,2,Permitidos)
+        Silvana.agregarPermitidos(Leticia)
+        Silvana.agregarPermitidos(Roberto)
+        Silvana.agregarPublicacion(foto)
+        Silvana.puedeVerLaPublicacion(foto,Sofia).shouldBe(false)
+      }
 
-
-
+      //describe("mejores amigos de un usuario"){
+        //Silvana.mejoresAmigos()
+      //}
 
     }
   }

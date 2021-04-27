@@ -5,7 +5,7 @@ class Usuario {
   var listaDeAmigos = mutableListOf<Usuario>()
   var listaDeExcluidos= mutableListOf<Usuario>()
   var listaPermitidos= mutableListOf<Usuario>()
-
+ var listaMejoresAmigos= mutableListOf<Usuario>()
 
   fun agregarPermitidos(usuario:Usuario){
     listaPermitidos.add(usuario)
@@ -32,7 +32,11 @@ class Usuario {
 
 
   fun puedeVerLaPublicacion(publicacion: Publicacion,usuario:Usuario)=
-    ((publicaciones.contains(publicacion)) && ((this == usuario) || (this.listaDeAmigos.contains(usuario)) ))
+    ((publicaciones.contains(publicacion) ) && ( (this == usuario) || (this.listaDeAmigos.contains(usuario)) || (this.listaPermitidos.contains(usuario)) ))
+
+  //fun mejoresAmigos(usuario:Usuario):Boolean {
+   //return listaMejoresAmigos.contains()
+  //}
 
 }
 
