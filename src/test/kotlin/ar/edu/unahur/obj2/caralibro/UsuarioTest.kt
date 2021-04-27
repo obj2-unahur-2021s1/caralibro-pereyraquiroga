@@ -1,24 +1,28 @@
 package ar.edu.unahur.obj2.caralibro
-import ar.edu.unahur.obj2.caralibro.Excluidos
+
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 
 
 class UsuarioTest : DescribeSpec({
-  val Roberto= Usuario()
-  val Silvana= Usuario()
-  val Sofia= Usuario()
-  val Estefania=Usuario()
-  val Claudia = Usuario()
-  val Leticia = Usuario()
+  val juana = Usuario()
+  val roberto= Usuario()
+  val silvana= Usuario()
+  val sofia= Usuario()
+  val estefania=Usuario()
+  val claudia = Usuario()
+  val leticia = Usuario()
   val Publico =Publico()
+  val SoloAmigos=SoloAmigos()
+  val Permitidos= Permitidos()
+  val Excluidos= Excluidos()
 
   describe("Caralibro") {
 
     val fotoEnCuzco = Foto(768, 1024,Publico)
-    val videoSD = Video(tipoDeVideo = "SD", 2,Publico)
-    val videoHD720p = Video(tipoDeVideo = "HD720p", 2,Publico)
-    val videoHD1080P = Video(tipoDeVideo = "HD1080p", 2,Publico)
+    val videoSD = Video( "SD", 2,Publico)
+    val videoHD720p = Video( "HD720p", 2,Publico)
+    val videoHD1080P = Video( "HD1080p", 2,Publico)
     val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz",Publico)
     describe("Una publicaci?n") {
       describe("de tipo foto") {
@@ -49,8 +53,6 @@ class UsuarioTest : DescribeSpec({
 
     describe("Un usuario") {
       it("puede calcular el espacio que ocupan sus publicaciones") {
-        val juana = Usuario()
-
         juana.agregarPublicacion(fotoEnCuzco)
         juana.agregarPublicacion(saludoCumpleanios)
         juana.agregarPublicacion(videoSD) // agregue videoSD
@@ -60,14 +62,13 @@ class UsuarioTest : DescribeSpec({
       }
 
       describe("Poder darle me gusta a una publicacion y ver cuantas veces fue votada") {
-        val Claudia = Usuario()
-        Roberto.agregarPublicacion(saludoCumpleanios)
-        Claudia.agregarPublicacion(fotoEnCuzco)
-        Silvana.agregarPublicacion(videoSD)
-        saludoCumpleanios.usuariosQueDieronMeGusta(Silvana)
-        fotoEnCuzco.usuariosQueDieronMeGusta(Roberto)
-        fotoEnCuzco.usuariosQueDieronMeGusta(Roberto)
-        fotoEnCuzco.usuariosQueDieronMeGusta(Silvana)
+        roberto.agregarPublicacion(saludoCumpleanios)
+        claudia.agregarPublicacion(fotoEnCuzco)
+        silvana.agregarPublicacion(videoSD)
+        saludoCumpleanios.usuariosQueDieronMeGusta(silvana)
+        fotoEnCuzco.usuariosQueDieronMeGusta(roberto)
+        fotoEnCuzco.usuariosQueDieronMeGusta(roberto)
+        fotoEnCuzco.usuariosQueDieronMeGusta(silvana)
         saludoCumpleanios.cuantasVecesFueVotada().shouldBe(1)
         videoSD.cuantasVecesFueVotada().shouldBe(0)
         fotoEnCuzco.cuantasVecesFueVotada().shouldBe(2)
@@ -75,66 +76,63 @@ class UsuarioTest : DescribeSpec({
 
       describe("Un usuario es mas amistoso que otro") {
 
-        Roberto.agregarAmigos(Sofia)
-        Silvana.agregarAmigos(Claudia)
-        Silvana.agregarAmigos(Estefania)
-        Roberto.esMasAmistosoQue(Silvana).shouldBe(false)
+        roberto.agregarAmigos(sofia)
+        silvana.agregarAmigos(claudia)
+        silvana.agregarAmigos(estefania)
+        roberto.esMasAmistosoQue(silvana).shouldBe(false)
       }
 
       describe("Un usuario puede ver una cierta publicacion.") {
-        val Claudia = Usuario()
+        claudia.agregarAmigos(roberto)
 
-        Claudia.agregarAmigos(Roberto)
+        claudia.agregarPublicacion(videoSD)
 
-        Claudia.agregarPublicacion(videoSD)
-
-        Claudia.puedeVerLaPublicacion(videoSD, Roberto).shouldBe(true)
+        claudia.puedeVerLaPublicacion(videoSD, roberto).shouldBe(true)
       }
 
       describe("El usuario Silvana puede ver la publicacion si es para solo amigos de Roberto") {
-        val SoloAmigos=SoloAmigos()
         val fotoEnCuzcoCumple=Foto(2,3,SoloAmigos)
-        Roberto.agregarAmigos(Silvana)
-        Roberto.agregarPublicacion(fotoEnCuzcoCumple)
-        Roberto.puedeVerLaPublicacion(fotoEnCuzcoCumple,Silvana).shouldBe(true)
+        roberto.agregarAmigos(silvana)
+        roberto.agregarPublicacion(fotoEnCuzcoCumple)
+        roberto.puedeVerLaPublicacion(fotoEnCuzcoCumple,silvana).shouldBe(true)
       }
 
       describe("Silvana puede ver la publicacion de Estefania si es publica con lista de excluidos") {
-        val Excluidos= Excluidos()
         val videoHD1080P=Video("DH1080P",2,Excluidos)
-        val Estefania=Usuario()
-        Estefania.agregarExcluidos(Silvana)
-        Estefania.agregarPublicacion(videoHD1080P)
-        Estefania.puedeVerLaPublicacion(videoHD1080P,Silvana).shouldBe(false)
+        estefania.agregarExcluidos(silvana)
+        estefania.agregarPublicacion(videoHD1080P)
+        estefania.puedeVerLaPublicacion(videoHD1080P,silvana).shouldBe(false)
       }
 
       describe("Leticia puede ver a publicacion de Silvana si es publica con lista de excluidos"){
-        val Excluidos= Excluidos()
-        val videoHD1080P=Video("DH1080P",2,Excluidos)
-        val Claudia=Usuario()
-        Claudia.agregarExcluidos(Roberto)
-        Claudia.agregarExcluidos(Estefania)
-        Claudia.agregarAmigos(Leticia)
-        Claudia.agregarPublicacion(videoHD1080P)
-        Claudia.puedeVerLaPublicacion(videoHD1080P,Leticia).shouldBe(true)
+        claudia.agregarExcluidos(roberto)
+        claudia.agregarExcluidos(estefania)
+        claudia.agregarAmigos(leticia)
+        claudia.agregarPublicacion(videoHD1080P)
+        claudia.puedeVerLaPublicacion(videoHD1080P,leticia).shouldBe(true)
       }
 
       describe("Puede ver publicacion si esta en la lista de Permitidos"){
-        val Permitidos= Permitidos()
         val foto=Foto(2,2,Permitidos)
-        Estefania.agregarPermitidos(Claudia)
-        Estefania.agregarPermitidos(Sofia)
-        Estefania.agregarPublicacion(foto)
-        Estefania.puedeVerLaPublicacion(foto,Sofia).shouldBe(true)
+        estefania.agregarPermitidos(claudia)
+        estefania.agregarPermitidos(sofia)
+        estefania.agregarPublicacion(foto)
+        estefania.puedeVerLaPublicacion(foto,sofia).shouldBe(true)
       }
 
       describe("No puede ver publicacion si no esta en la lista de Permitidos"){
-        val Permitidos= Permitidos()
         val foto=Foto(2,2,Permitidos)
-        Silvana.agregarPermitidos(Leticia)
-        Silvana.agregarPermitidos(Roberto)
-        Silvana.agregarPublicacion(foto)
-        Silvana.puedeVerLaPublicacion(foto,Sofia).shouldBe(false)
+        silvana.agregarPermitidos(leticia)
+        silvana.agregarPermitidos(roberto)
+        silvana.agregarPublicacion(foto)
+        silvana.puedeVerLaPublicacion(foto,sofia).shouldBe(false)
+      }
+
+      describe("Puede cambiar permiso de una publicacion"){
+        val foto=Foto(2,2,Permitidos)
+        silvana.cambiarPermiso(foto,SoloAmigos)
+
+
       }
 
       //describe("mejores amigos de un usuario"){

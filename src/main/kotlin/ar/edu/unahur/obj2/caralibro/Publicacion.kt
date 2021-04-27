@@ -14,10 +14,14 @@ abstract class Publicacion() {
     usuarioDioMegusta.add(usuarioDeLike)
   }
 
+  abstract fun cambiaPermiso(permiso: Permiso)
+
+
 }
 
 
-class Foto(val alto: Int, val ancho: Int, val permiso: Permiso) : Publicacion() {
+
+class Foto(val alto: Int, val ancho: Int, var permiso: Permiso) : Publicacion() {
 
   val factorDeCompresion = 0.7
 
@@ -25,17 +29,22 @@ class Foto(val alto: Int, val ancho: Int, val permiso: Permiso) : Publicacion() 
 
   override fun cuantasVecesFueVotada() = usuarioDioMegusta.size
 
+  override fun cambiaPermiso(permiso: Permiso) {this.permiso=permiso}
+
+
 
 }
 
-class Texto(val contenido: String, val permiso: Permiso) : Publicacion() {
+class Texto(val contenido: String, var permiso: Permiso) : Publicacion() {
 
   override fun espacioQueOcupa() = contenido.length
 
   override fun cuantasVecesFueVotada() = usuarioDioMegusta.size
+
+  override fun cambiaPermiso(permiso: Permiso) {this.permiso=permiso}
 }
 
-class Video(val tipoDeVideo : String, val tiempo :Int,val permiso: Permiso): Publicacion() {
+class Video(val tipoDeVideo : String, val tiempo :Int, var permiso: Permiso): Publicacion() {
 
   override fun espacioQueOcupa() =
     if (tipoDeVideo == "SD") {
@@ -49,5 +58,7 @@ class Video(val tipoDeVideo : String, val tiempo :Int,val permiso: Permiso): Pub
     }
 
   override fun cuantasVecesFueVotada() = usuarioDioMegusta.size
+
+  override fun cambiaPermiso(permiso: Permiso) {this.permiso=permiso}
 
 }

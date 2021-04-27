@@ -34,7 +34,9 @@ class Usuario {
   fun puedeVerLaPublicacion(publicacion: Publicacion,usuario:Usuario)=
     ((publicaciones.contains(publicacion) ) && ( (this == usuario) || (this.listaDeAmigos.contains(usuario)) || (this.listaPermitidos.contains(usuario)) ))
 
-  //fun mejoresAmigos(usuario:Usuario):Boolean {
+  fun cambiarPermiso(publicacion: Publicacion,permiso:Permiso)=publicacion.cambiaPermiso(permiso)
+
+    //fun mejoresAmigos(usuario:Usuario):Boolean {
    //return listaMejoresAmigos.contains()
   //}
 
